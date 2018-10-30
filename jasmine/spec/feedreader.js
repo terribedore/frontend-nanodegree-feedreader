@@ -109,5 +109,23 @@ $(function() {
        * by the loadFeed function that the content actually changes.
        * Remember, loadFeed() is asynchronous.
        */
+        let feed1;
+        let feed2;
+
+        beforeEach(function(done) { // opens async call. This spec will not
+         // start until the `done` function is called in the call to
+         // `beforeEach` above.
+            loadFeed(0, function() {
+              feed1 = $('.feed').html();
+              loadFeed(1, done);
+            });
+        });
+        it('content changes upon loading feed', function(done) {
+            feed2 = $('.feed').html();
+            expect(feed1).not.toEqual(feed2);
+            done(); // closes async call. This spec will not complete until its
+            // `done` is called.
+        })
+    });
 
 }());
