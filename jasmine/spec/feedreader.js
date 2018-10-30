@@ -88,6 +88,20 @@ $(function() {
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
+        beforeEach(function(done) { // opens async call. This spec will not
+         // start until the `done` function is called in the call to
+         // `beforeEach` above.
+           loadFeed(0, done);
+        });
+
+        it('min 1 entry in feed', function (done) {
+            const entry = document.getElementsByClassName('entry');
+            expect($('.feed .entry').length).toBeGreaterThan(0);
+            done(); // closes async call. This spec will not complete until its
+            // `done` is called.
+        });
+    });
+
 
     /* TODO: Write a new test suite named "New Feed Selection" */
     describe('New Feed Selection', function() {
